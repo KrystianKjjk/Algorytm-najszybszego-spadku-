@@ -1,0 +1,22 @@
+﻿<Controls:MetroWindow x:Class="FastestFallProgramExample.View.CounterLineWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:view="clr-namespace:FastestFallProgramExample.View"
+        xmlns:local="clr-namespace:FastestFallProgramExample.View"
+        mc:Ignorable="d"
+        Title="CounterLineWindow" Height="{Binding WindowHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="{Binding WindowWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition  Width="{Binding BitmapSize}"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <view:CounterLineView Grid.Column="0" Height="{Binding BitmapSize}"
+                             DataContext="{Binding CounterLineViewModel}" Margin="0,5,0,-5"/>
+        <view:CounterLineDetailView Grid.Column="1"
+                             DataContext="{Binding CounterLineDetailViewModel}"/>
+    </Grid>
+</Controls:MetroWindow>

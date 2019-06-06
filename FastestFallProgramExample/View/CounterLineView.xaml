@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="FastestFallProgramExample.View.CounterLineView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FastestFallProgramExample.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Canvas >
+                        
+            <!--Width="{Binding BitmapSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="{Binding BitmapSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
+            <Image Source="{Binding Bitmap, UpdateSourceTrigger=PropertyChanged}" Width="{Binding BitmapSize}" Height="{Binding BitmapSize}"/>
+            <ItemsControl ItemsSource="{Binding PointItems}" Background="Transparent" >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Name="C1" Background="Transparent"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Canvas.Left" Value="{Binding Coordinates.X}"/>
+                        <Setter Property="Canvas.Top" Value="{Binding Coordinates.Y}"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Rectangle Width="{Binding Size}" Height="{Binding Size}" Fill="Black" ToolTipService.ShowDuration="5000">
+                            <Rectangle.ToolTip >
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Content="X1 :"/>
+                                    <Label Grid.Column="0" Grid.Row="1" Content="X2 :"/>
+                                    <Label Grid.Column="0" Grid.Row="2" Content="Value :"/>
+
+                                    <Label Grid.Column="1" Grid.Row="0" Content="{Binding Point.ListOfVariables[0]}"/>
+                                    <Label Grid.Column="1" Grid.Row="1" Content="{Binding Point.ListOfVariables[1]}"/>
+                                    <Label Grid.Column="1" Grid.Row="2" Content="{Binding Point.FunctionValue}"/>
+                                </Grid>
+                            </Rectangle.ToolTip>
+                        </Rectangle>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <ItemsControl ItemsSource="{Binding LinesConnectingPoints}" Background="Transparent">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Name="C1" Background="Transparent"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Line X1="{Binding BeginLine.X}" Y1="{Binding BeginLine.Y}" X2="{Binding EndLine.X}" Y2="{Binding EndLine.Y}" Stroke="DarkBlue" Fill="Black"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+            <Label Content="X2" Canvas.Top="0" Canvas.Left="0"/>
+            <Label Content="X1" Canvas.Top="{Binding XLegend}" Canvas.Left="{Binding XLegend}"/>
+        </Canvas>
+    </Grid>
+</UserControl>
