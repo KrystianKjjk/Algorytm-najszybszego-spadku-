@@ -6,4 +6,6 @@ W celu prowadzenia obliczeń na funkcji zadanej przez użytkownika użyty zosta�
 (http://mathparser.org/mxparser-license/)
 
 
-*Program jest w trakcie tworzenia. 
+
+
+*Program nie jest kompletny, dlatego może zawierać błędy.
