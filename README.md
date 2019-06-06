@@ -4,3 +4,6 @@ Program oblicza minimum lokalne zadanej różniczkowalnej funkcji matematycznej 
 W celu prowadzenia obliczeń na funkcji zadanej przez użytkownika użyty został mXparser 
 (http://mathparser.org/) 
 (http://mathparser.org/mxparser-license/)
+
+
+*Program jest w trakcie tworzenia. 
