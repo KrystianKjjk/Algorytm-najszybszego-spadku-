@@ -1,0 +1,12 @@
+C:\Users\Krykjjk\Desktop\programy\C#\Metoda najszybszego spadku\Algorytm-najszybszego-spadku-\FastestFallProgramExample.Model\bin\Debug\FastestFallProgramExample.Model.dll
+C:\Users\Krykjjk\Desktop\programy\C#\Metoda najszybszego spadku\Algorytm-najszybszego-spadku-\FastestFallProgramExample.Model\bin\Debug\FastestFallProgramExample.Model.pdb
+C:\Users\Krykjjk\Desktop\programy\C#\Metoda najszybszego spadku\Algorytm-najszybszego-spadku-\FastestFallProgramExample.Model\bin\Debug\ChartsCreator.dll
+C:\Users\Krykjjk\Desktop\programy\C#\Metoda najszybszego spadku\Algorytm-najszybszego-spadku-\FastestFallProgramExample.Model\bin\Debug\MathFunction.dll
+C:\Users\Krykjjk\Desktop\programy\C#\Metoda najszybszego spadku\Algorytm-najszybszego-spadku-\FastestFallProgramExample.Model\bin\Debug\MathParser.org-mXparser.Net461.dll
+C:\Users\Krykjjk\Desktop\programy\C#\Metoda najszybszego spadku\Algorytm-najszybszego-spadku-\FastestFallProgramExample.Model\bin\Debug\ChartsCreator.pdb
+C:\Users\Krykjjk\Desktop\programy\C#\Metoda najszybszego spadku\Algorytm-najszybszego-spadku-\FastestFallProgramExample.Model\bin\Debug\MathFunction.pdb
+C:\Users\Krykjjk\Desktop\programy\C#\Metoda najszybszego spadku\Algorytm-najszybszego-spadku-\FastestFallProgramExample.Model\obj\Debug\FastestFallProgramExample.Model.csprojAssemblyReference.cache
+C:\Users\Krykjjk\Desktop\programy\C#\Metoda najszybszego spadku\Algorytm-najszybszego-spadku-\FastestFallProgramExample.Model\obj\Debug\FastestFallProgramExample.Model.csproj.CoreCompileInputs.cache
+C:\Users\Krykjjk\Desktop\programy\C#\Metoda najszybszego spadku\Algorytm-najszybszego-spadku-\FastestFallProgramExample.Model\obj\Debug\FastestFallProgramExample.Model.csproj.CopyComplete
+C:\Users\Krykjjk\Desktop\programy\C#\Metoda najszybszego spadku\Algorytm-najszybszego-spadku-\FastestFallProgramExample.Model\obj\Debug\FastestFallProgramExample.Model.dll
+C:\Users\Krykjjk\Desktop\programy\C#\Metoda najszybszego spadku\Algorytm-najszybszego-spadku-\FastestFallProgramExample.Model\obj\Debug\FastestFallProgramExample.Model.pdb
