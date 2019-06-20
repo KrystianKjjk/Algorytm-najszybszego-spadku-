@@ -41,7 +41,9 @@
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.6.5\lib\net46\MahApps.Metro.dll</HintPath>
     </Reference>
-    <Reference Include="MathParser.org-mXparser.Net461, Version=4.2.0.0, Culture=neutral, PublicKeyToken=0fbab7add73ed6e2" />
+    <Reference Include="MathParser.org-mXparser.Net461">
+      <HintPath>..\MathParser.org-mXparser.Net461.dll</HintPath>
+    </Reference>
     <Reference Include="Prism, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.7.1.0.431\lib\net45\Prism.dll</HintPath>
     </Reference>
