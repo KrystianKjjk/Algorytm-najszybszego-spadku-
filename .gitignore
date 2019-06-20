@@ -3,3 +3,16 @@
 ################################################################################
 
 /.vs/FastestFallProgramExample/v15/Server/sqlite3
+/Algorithms/bin/Debug
+/ChartsCreator/obj/Debug
+/FastestFallProgramExample/bin/Debug
+/FastestFallProgramExample.Model/bin/Debug
+/MathFunction/bin/Debug
+/packages
+/MathFunction.Tests/obj
+/MathFunction/obj/Debug
+/FastestFallProgramExample.Model/obj/Debug
+/FastestFallProgramExample/obj/Debug
+/ChartsCreator/bin/Debug
+/Algorithms.Tests/obj
+/Algorithms/obj/Debug
