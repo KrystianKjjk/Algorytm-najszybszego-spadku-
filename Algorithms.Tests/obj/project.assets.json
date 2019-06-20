@@ -5794,11 +5794,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Krykjjk\\Desktop\\programy\\C#\\Metoda najszybszego spadku\\FastestFallProgramExample\\Algorithms.Tests\\Algorithms.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\Krykjjk\\Desktop\\programy\\C#\\Metoda najszybszego spadku\\Algorytm-najszybszego-spadku-\\Algorithms.Tests\\Algorithms.Tests.csproj",
       "projectName": "Algorithms.Tests",
-      "projectPath": "C:\\Users\\Krykjjk\\Desktop\\programy\\C#\\Metoda najszybszego spadku\\FastestFallProgramExample\\Algorithms.Tests\\Algorithms.Tests.csproj",
+      "projectPath": "C:\\Users\\Krykjjk\\Desktop\\programy\\C#\\Metoda najszybszego spadku\\Algorytm-najszybszego-spadku-\\Algorithms.Tests\\Algorithms.Tests.csproj",
       "packagesPath": "C:\\Users\\Krykjjk\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Krykjjk\\Desktop\\programy\\C#\\Metoda najszybszego spadku\\FastestFallProgramExample\\Algorithms.Tests\\obj\\",
+      "outputPath": "C:\\Users\\Krykjjk\\Desktop\\programy\\C#\\Metoda najszybszego spadku\\Algorytm-najszybszego-spadku-\\Algorithms.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -5817,11 +5817,11 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\Krykjjk\\Desktop\\programy\\C#\\Metoda najszybszego spadku\\FastestFallProgramExample\\Algorithms\\Algorithms.csproj": {
-              "projectPath": "C:\\Users\\Krykjjk\\Desktop\\programy\\C#\\Metoda najszybszego spadku\\FastestFallProgramExample\\Algorithms\\Algorithms.csproj"
+            "C:\\Users\\Krykjjk\\Desktop\\programy\\C#\\Metoda najszybszego spadku\\Algorytm-najszybszego-spadku-\\Algorithms\\Algorithms.csproj": {
+              "projectPath": "C:\\Users\\Krykjjk\\Desktop\\programy\\C#\\Metoda najszybszego spadku\\Algorytm-najszybszego-spadku-\\Algorithms\\Algorithms.csproj"
             },
-            "C:\\Users\\Krykjjk\\Desktop\\programy\\C#\\Metoda najszybszego spadku\\FastestFallProgramExample\\MathFunction\\MathFunction.csproj": {
-              "projectPath": "C:\\Users\\Krykjjk\\Desktop\\programy\\C#\\Metoda najszybszego spadku\\FastestFallProgramExample\\MathFunction\\MathFunction.csproj"
+            "C:\\Users\\Krykjjk\\Desktop\\programy\\C#\\Metoda najszybszego spadku\\Algorytm-najszybszego-spadku-\\MathFunction\\MathFunction.csproj": {
+              "projectPath": "C:\\Users\\Krykjjk\\Desktop\\programy\\C#\\Metoda najszybszego spadku\\Algorytm-najszybszego-spadku-\\MathFunction\\MathFunction.csproj"
             }
           }
         }
