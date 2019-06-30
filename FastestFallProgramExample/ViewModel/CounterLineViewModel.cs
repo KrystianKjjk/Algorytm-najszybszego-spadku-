@@ -6,39 +6,39 @@ using Prism.Events;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
 namespace FastestFallProgramExample.ViewModel
 {
-    public class CounterLineViewModel :  PropertyChangedBase, ICounterLineCreator
+    public class CounterLineViewModel :  PropertyChangedBase, ICounterLineViewModel
     {
         private IEventAggregator _eventAggregator;
 
-        private readonly double _pointSize;
-        private readonly string _function;
+        private readonly double _calculatedPointSize;
+        private string _function;
         private BitmapSource _bitmap;
         private double _BitmapSize;
-
-        public CounterLineViewModel(IEventAggregator eventAggregator, IEnumerable<Point> points, string function)
+        private double _XLegend;
+        public CounterLineViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
-
-            _pointSize = 6 ;
-            _function = function;
+            _calculatedPointSize = 6 ;
             BitmapSize = 100;
-            CalculatedPoints = points;
 
             PointItems = new ObservableCollection<PointItem>();
             LinesConnectingPoints = new ObservableCollection<LineItem>();
 
             _eventAggregator.GetEvent<CreateCounterLineEvent>().Subscribe(CreateCounterLine);
 
-
-
         }
-
+        public void Load(IEnumerable<Point> points, string function)
+        {
+            _function = function;
+            CalculatedPoints = points;
+        }
         public PointItem CentralPoint { get; set; }
-        public IEnumerable<Point> CalculatedPoints { get; }
+        public IEnumerable<Point> CalculatedPoints { get; private set; }
         public ObservableCollection<PointItem> PointItems { get; set; }
         public ObservableCollection<LineItem> LinesConnectingPoints { get; set; }
         public BitmapSource Bitmap
@@ -60,9 +60,18 @@ namespace FastestFallProgramExample.ViewModel
                 OnPropertyChanged();
             }
         }
-        public double XLegend { get; set; }
-        public void Create(double imageSize, double range, int step, double CentrumX = 0, double CentrumY = 0)
+        public double XLegend
         {
+            get { return _XLegend; }
+            set
+            {
+                _XLegend = value;
+                OnPropertyChanged();
+            }
+        }
+        public async void Create(double imageSize, double range, int step, double CentrumX = 0, double CentrumY = 0)
+        {
+            _eventAggregator.GetEvent<CreateCounterLineInfoEvent>().Publish(true); // Counterine is Creatng
             BitmapSize = imageSize;
             var pixelsCaclulator = new PixelsCaclulator(imageSize, imageSize, range, step, CentrumX, CentrumY);
 
@@ -71,47 +80,43 @@ namespace FastestFallProgramExample.ViewModel
 
             var centralCoordinate = pixelsCaclulator.CalculatePixel(CentrumX, CentrumY);
 
-            CentralPoint = new PointItem( centralCoordinate,new Point(CentrumX, CentrumY),_pointSize);
-             var pixels = pixelsCaclulator.CalculatePixelsForCounterLine(_function);
+            CentralPoint = new PointItem( centralCoordinate, new Point(CentrumX, CentrumY),_calculatedPointSize);
+            var pixels = await GetPixelsTask(pixelsCaclulator);
             Bitmap = BitmapCreator.CreateBitmap(pixels);
+
+            _eventAggregator.GetEvent<CreateCounterLineInfoEvent>().Publish(false); // Counterine is not Creatng
             CalculatePointItemBasemOnCalculatedPoints(CalculatedPoints, pixelsCaclulator);
 
-           // var minPixelValue = (double)pixels.Min(p=>p.Point.FunctionValue); // blue 
-           // var maxpixelValue = (double)pixels.Max(p=>p.Point.FunctionValue); // red 
-
-           // var legendStep = (maxpixelValue - minPixelValue) / 100;
-
-           // var legendPixels = new List<Pixel>();
-           // for (double i = minPixelValue; i < maxpixelValue; i = i+legendStep)
-           // {
-           //     var p = new Pixel(50,10);
-           //     p.CalculateSetColor(i, minPixelValue, maxpixelValue);
-           //     legendPixels.Add(p);
-           // }
-           // Bitmap = BitmapCreator.CreateBitmap(legendPixels, (int)BitmapSize, (int)BitmapSize);
-           //Bitmap = BitmapCreator.CreateBitmap(legendPixels);
-
         }
-
+        private async Task<IEnumerable<Pixel>> GetPixelsTask (PixelsCaclulator pixelsCalculator)
+        {
+            return await Task.Run(() => pixelsCalculator.CalculatePixelsForCounterLine(_function));
+            
+        }
         private void CreateCounterLine(CreateCounterLineEventArgs obj)
         {
-            Create(obj.ImegeSize, obj.Range, obj.Step, obj.X, obj.Y);
+            if (obj.Function != null)
+                _function = obj.Function;
+            if(obj.Points != null)
+                CalculatedPoints = obj.Points;
             BitmapSize = obj.ImegeSize;
+            Create(obj.ImegeSize, obj.Range, obj.Step, obj.X, obj.Y);
+            
         }
         private void CalculatePointItemBasemOnCalculatedPoints(IEnumerable<Point> points, PixelsCaclulator parametrizedPixelsCaclulator)
         {
             Coordinates GetCalculatedPixels(Point vs)
             {
                 var coor = parametrizedPixelsCaclulator.CalculatePixel(vs.ListOfVariables[0], vs.ListOfVariables[1]);
-                coor.X -= _pointSize / 2; // change the coordinates to put pixel in the center of the point  
-                coor.Y -= _pointSize / 2;
+                coor.X -= _calculatedPointSize / 2; // change the coordinates to put pixel in the center of the point  
+                coor.Y -= _calculatedPointSize / 2;
                 return coor;
             }
 
             void ConnectPointWithLine(PointItem A, PointItem B)
             {
-                var CoorA = new Coordinates(A.Coordinates.X + _pointSize / 2, A.Coordinates.Y + _pointSize / 2);
-                var CoorB = new Coordinates(B.Coordinates.X + _pointSize / 2, B.Coordinates.Y + _pointSize / 2);
+                var CoorA = new Coordinates(A.Coordinates.X + _calculatedPointSize / 2, A.Coordinates.Y + _calculatedPointSize / 2);
+                var CoorB = new Coordinates(B.Coordinates.X + _calculatedPointSize / 2, B.Coordinates.Y + _calculatedPointSize / 2);
 
                 var lineItem = new LineItem(CoorA, CoorB);
                 LinesConnectingPoints.Add(lineItem);
@@ -124,7 +129,7 @@ namespace FastestFallProgramExample.ViewModel
 
             var coordinates = GetCalculatedPixels(point);
 
-            var PointItem = new PointItem(coordinates, point, _pointSize);
+            var PointItem = new PointItem(coordinates, point, _calculatedPointSize);
 
             PointItems.Add(PointItem);
 
@@ -132,8 +137,9 @@ namespace FastestFallProgramExample.ViewModel
             {
                 point = points.ElementAt(i);
                 coordinates = GetCalculatedPixels(point);
-                PointItem = new PointItem(coordinates, point, _pointSize);
+                PointItem = new PointItem(coordinates, point, _calculatedPointSize);
                 PointItems.Add(PointItem);
+
 
                 ConnectPointWithLine(PointItems.ElementAt(i - 1), PointItem);
             }

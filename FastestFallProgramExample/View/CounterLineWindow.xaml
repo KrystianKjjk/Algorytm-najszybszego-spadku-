@@ -7,8 +7,10 @@
         xmlns:view="clr-namespace:FastestFallProgramExample.View"
         xmlns:local="clr-namespace:FastestFallProgramExample.View"
         mc:Ignorable="d"
-        Title="CounterLineWindow" Height="{Binding WindowHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="{Binding WindowWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-
+        xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+        md:DialogServiceViews.IsRegistered="True"
+        Title="CounterLineWindow" Height="{Binding WindowHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="{Binding WindowWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition  Width="{Binding BitmapSize}"/>
@@ -18,5 +20,7 @@
                              DataContext="{Binding CounterLineViewModel}" Margin="0,5,0,-5"/>
         <view:CounterLineDetailView Grid.Column="1"
                              DataContext="{Binding CounterLineDetailViewModel}"/>
+        <local:CounterLineDetailView Grid.Column="1"
+            DataContext="{Binding CounterLineDetailViewModel}"/>
     </Grid>
 </Controls:MetroWindow>

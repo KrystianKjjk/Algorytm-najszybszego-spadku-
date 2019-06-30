@@ -2,11 +2,12 @@
 using FastestFallProgramExample.Events;
 using Prism.Commands;
 using Prism.Events;
+using System;
 using System.Windows.Input;
 
 namespace FastestFallProgramExample.ViewModel
 {
-    public class CounterLineDetailViewModel : PropertyChangedBase
+    public class CounterLineDetailViewModel : PropertyChangedBase, ICounterLineDetailViewModel
     {
         private IEventAggregator _eventAggregator;
         private IMessageDialogService _messageDialogService;
@@ -21,16 +22,31 @@ namespace FastestFallProgramExample.ViewModel
             _messageDialogService = messageDialogService;
 
             CreateCommand = new DelegateCommand(OnCreateCommand, OnCancreateCommand);
-
-            Step = 10;
-            CounterLineSize = 500;
-            Range = 10;
             X1 = 0;
             X2 = 0;
 
+            _eventAggregator.GetEvent<CreateCounterLineInfoEvent>().Subscribe(GetInfo);
+            _eventAggregator.GetEvent<CreateCounterLineEvent>().Subscribe(GetParameters);
+        }
+
+        private void GetParameters(CreateCounterLineEventArgs arg)
+        {
+            Step = arg.Step;
+            CounterLineSize = arg.ImegeSize;
+            Range = arg.Range;
+            X1 = arg.X;
+            X2 = arg.Y;
+            
+        }
+
+        private void GetInfo(bool arg)
+        {
+            IsCounterLineCreating = arg;
+            ((DelegateCommand)CreateCommand).RaiseCanExecuteChanged();
         }
 
         public ICommand CreateCommand { get; }
+        public ICommand CloseCommand { get; }
 
         public int Step
         {
@@ -83,6 +99,8 @@ namespace FastestFallProgramExample.ViewModel
             }
         }
 
+        public bool IsCounterLineCreating { get; private set; }
+
         private void OnCreateCommand()
         {
             _eventAggregator.GetEvent<CreateCounterLineEvent>().Publish(
@@ -100,12 +118,14 @@ namespace FastestFallProgramExample.ViewModel
         {
             return Step != 0
                 && Range != 0
-                && CounterLineSize != 0;
+                && CounterLineSize != 0
+                && IsCounterLineCreating == false;
 
         }
+        public void Load()
+        {
 
-
-
+        }
 
     }
 }

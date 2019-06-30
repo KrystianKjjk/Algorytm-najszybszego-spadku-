@@ -1,4 +1,5 @@
-﻿using Prism.Events;
+﻿using MathFunction;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,7 @@ namespace FastestFallProgramExample.Events
         public int Step { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
+        public IEnumerable<Point> Points { get; set; }
+        public string Function { get; set; }
     }
 }

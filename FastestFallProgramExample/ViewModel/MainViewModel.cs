@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using FastestFallProgramExample.View;
+using FastestFallProgramExample.Events;
 
 namespace FastestFallProgramExample.ViewModel
 {
@@ -66,7 +67,8 @@ namespace FastestFallProgramExample.ViewModel
 
             UpdateVariablees();
         }
-
+        public delegate void ShowCounterLineWindowEventHandler();
+        public event ShowCounterLineWindowEventHandler ShowCounterLineWindowEvent;
         public ICommand SaveCommand { get; }
         public ICommand CalculateMinnimumCommand { get; set; }
         public ICommand CreateCounterLineCommand { get; set; }
@@ -158,9 +160,20 @@ namespace FastestFallProgramExample.ViewModel
         }
         private void OnCreateCommand()
         {
-            //TODO: Do It correctly
-            var newWindow = new CounterLineWindow(new CounterLineWindowViewModel(_messageDialogService, new EventAggregator(), calcucatedPoints, FunctionDefinedByUser, CounterLineSize));
-            newWindow.Show();
+            var p = calcucatedPoints.ElementAt(0).ListOfVariables.Max(pq => Math.Abs(pq));
+            if (p == 0)
+                p = 1;
+            _eventAggregator.GetEvent<CreateCounterLineEvent>().Publish(
+                new CreateCounterLineEventArgs
+                {
+                    Range = 1.1*p,
+                    Step = 15,
+                    Points = calcucatedPoints,
+                    Function = FunctionDefinedByUser,
+                    ImegeSize = CounterLineSize
+                });
+            ShowCounterLineWindowEvent?.Invoke(); // open new window
+
         }
         private bool OnCanCreateCommand()
         {
@@ -181,28 +194,8 @@ namespace FastestFallProgramExample.ViewModel
                     OnSaveCommand();
             }
             
-            //TODO: catch exceptions correctly
             Task calculateMinimumTask = new Task(CalculateMinimum);
-            try
-            {
-                calculateMinimumTask.Start();
-            }
-            catch (InvalidTauException)
-            {
-                _messageDialogService.ShowInfoDialog("Nie można obliczyć minimum dla podaego tau. Podaj inny parametr");
-            }
-            catch(UnfortunateFunctionCaseException fex)
-            {
-                calcucatedPoints = fex.Points;
-                UpdateDataTable(fex.Points);
-                var lastPoint = fex.Points.Last();
-                _messageDialogService.ShowInfoDialog($"Algorytm zakończył działanie z powodu zbyt dużej ilości obliczeń. \nOstatni obliczony punkt wynosi : {lastPoint} \nWartość : { _functionDefinition.GetValue(lastPoint)}");
-
-            }
-            catch (Exception)
-            {
-
-            }
+            calculateMinimumTask.Start();
 
             calculateMinimumTask.ContinueWith((t) => EndCalculating());
         }
@@ -225,6 +218,8 @@ namespace FastestFallProgramExample.ViewModel
         }
         private void CalculateMinimum()
         {
+            try
+            {
             StartCalculating();
 
             var value = Variables.Select(v => v.Value).ToArray();
@@ -243,6 +238,23 @@ namespace FastestFallProgramExample.ViewModel
             if (hessianResult != Hessian.StationaryConditions.Minimum)
                 _messageDialogService.ShowInfoDialog($"Obliczono resultat, który nie jest minimum lokalnym w punkcie : {result} \nWartość : { _functionDefinition.GetValue(result)}");
 
+            }
+            catch (InvalidTauException)
+            {
+                _messageDialogService.ShowInfoDialog("Nie można obliczyć minimum dla podaego tau. Podaj inny parametr");
+            }
+            catch (UnfortunateFunctionCaseException fex)
+            {
+                calcucatedPoints = fex.Points;
+                UpdateDataTable(fex.Points);
+                var lastPoint = fex.Points.Last();
+                _messageDialogService.ShowInfoDialog($"Algorytm zakończył działanie z powodu zbyt dużej ilości obliczeń. \nOstatni obliczony punkt wynosi : {lastPoint} \nWartość : { _functionDefinition.GetValue(lastPoint)}");
+
+            }
+            catch (Exception ex )
+            {
+                _messageDialogService.ShowInfoDialog(ex.ToString());
+            }
         }
         private void UpdateDataTable(IEnumerable<Point> points)
         {

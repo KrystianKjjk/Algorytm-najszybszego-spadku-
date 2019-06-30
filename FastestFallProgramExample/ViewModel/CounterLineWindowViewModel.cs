@@ -1,12 +1,14 @@
 ﻿using FastestFallProgramExample.Communication;
 using FastestFallProgramExample.Events;
 using MathFunction;
+using Prism.Commands;
 using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace FastestFallProgramExample.ViewModel
 {
@@ -19,27 +21,33 @@ namespace FastestFallProgramExample.ViewModel
         private double _windowHeight;
         private double _bitmapSize;
 
-        public CounterLineWindowViewModel(IMessageDialogService messageDialogService, IEventAggregator eventAggregator, IEnumerable<Point> points, string function, double imageSize )
+        public CounterLineWindowViewModel(ICounterLineDetailViewModel counterLineDetailViewModel, 
+            ICounterLineViewModel counterLineViewModel, 
+            IMessageDialogService messageDialogService, 
+            IEventAggregator eventAggregator)
         {
             _messageDialogService = messageDialogService;
             _eventAggregator = eventAggregator;
-            CalculateWindowHeight(imageSize);
-            CalculateWindowWidth(imageSize);
-            BitmapSize = imageSize;
 
-            CounterLineDetailViewModel = new CounterLineDetailViewModel(_messageDialogService, _eventAggregator);
-            CounterLineViewModel = new CounterLineViewModel(eventAggregator, points, function);
-
-            var p = points.ElementAt(0).ListOfVariables.Max(pq => Math.Abs(pq));
-            if (p == 0)
-                p = 1;
-            CounterLineViewModel.Create(imageSize, 1.1 * p, 15);
+            //CounterLineDetailViewModel = new CounterLineDetailViewModel(_messageDialogService, _eventAggregator);
+            //CounterLineViewModel = new CounterLineViewModel(eventAggregator, points, function);
+            CounterLineDetailViewModel = counterLineDetailViewModel;
+            CounterLineViewModel = counterLineViewModel;
 
             _eventAggregator.GetEvent<CreateCounterLineEvent>().Subscribe(AfterCrteatingCounterLine);
+
+            CloseCommand = new DelegateCommand(OnClose);
         }
 
-        public CounterLineDetailViewModel CounterLineDetailViewModel { get; set; }
-        public ICounterLineCreator CounterLineViewModel { get; set; }
+        private void OnClose()
+        {
+            
+        }
+
+        public ICommand CloseCommand { get; }
+
+        public ICounterLineDetailViewModel CounterLineDetailViewModel { get; set; }
+        public ICounterLineViewModel CounterLineViewModel { get; set; }
         public double WindowWidth
         {
             get { return _windowWidth; }
@@ -67,12 +75,19 @@ namespace FastestFallProgramExample.ViewModel
                 OnPropertyChanged();
             }
         }
+        public void Load(IEnumerable<Point> points, string function, double imageSize)
+        {
+            CalculateWindowHeight(imageSize);
+            CalculateWindowWidth(imageSize);
+            BitmapSize = imageSize;
+        }
 
         private void AfterCrteatingCounterLine(CreateCounterLineEventArgs obj)
         {
             CalculateWindowHeight(obj.ImegeSize);
             CalculateWindowWidth(obj.ImegeSize);
             BitmapSize = obj.ImegeSize;
+            Load(obj.Points,obj.Function, obj.ImegeSize);
         }
         private void CalculateWindowHeight(double size)
         {

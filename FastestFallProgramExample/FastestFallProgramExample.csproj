@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.9.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.9.2\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
     </Reference>
@@ -43,6 +46,9 @@
     </Reference>
     <Reference Include="MathParser.org-mXparser.Net461">
       <HintPath>..\MathParser.org-mXparser.Net461.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmDialogs, Version=5.3.0.0, Culture=neutral, PublicKeyToken=3d3b9708589bc73e, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmDialogs.5.3.0\lib\net45\MvvmDialogs.dll</HintPath>
     </Reference>
     <Reference Include="Prism, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.7.1.0.431\lib\net45\Prism.dll</HintPath>
@@ -70,13 +76,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Events\CreateCounterLineInfoEvent.cs" />
+    <Compile Include="Startup\Bootstrapper.cs" />
     <Compile Include="Communication\IMessageDialogService.cs" />
     <Compile Include="Communication\MessageDialogService.cs" />
     <Compile Include="Events\CreateCounterLineEvent.cs" />
     <Compile Include="ViewModel\CounterLineDetailViewModel.cs" />
     <Compile Include="ViewModel\CounterLineViewModel.cs" />
     <Compile Include="ViewModel\CounterLineWindowViewModel.cs" />
-    <Compile Include="ViewModel\ICounterLineCreator.cs" />
+    <Compile Include="ViewModel\ICounterLineDetailViewModel.cs" />
+    <Compile Include="ViewModel\ICounterLineViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PropertyChangedBase.cs" />
     <Compile Include="View\CounterLineDetailView.xaml.cs">

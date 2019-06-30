@@ -3,6 +3,7 @@ using MahApps.Metro.Controls;
 using MathFunction;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,8 @@ namespace FastestFallProgramExample.View
     /// </summary>
     public partial class CounterLineWindow : MetroWindow
     {
+        public delegate void CloseCLW();
+        public event CloseCLW CloseCLWEvent;
         private CounterLineWindowViewModel _CounterLineViewMododel;
         public CounterLineWindow(CounterLineWindowViewModel counterLineViewModel)
         {
@@ -29,6 +32,15 @@ namespace FastestFallProgramExample.View
             InitializeComponent();
             _CounterLineViewMododel = counterLineViewModel;
             DataContext = _CounterLineViewMododel;
+        }
+        protected override void OnClosed(EventArgs e)
+        {
+
+            CloseCLWEvent?.Invoke();
+        }
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using FastestFallProgramExample.ViewModel;
+﻿using Autofac;
+using FastestFallProgramExample.View;
+using FastestFallProgramExample.ViewModel;
 using MahApps.Metro.Controls;
 using MathFunction;
 using System;
@@ -23,12 +25,17 @@ namespace FastestFallProgramExample
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        public delegate void showCLW();
+        public event showCLW showCLWEvent;
         private MainViewModel _viewModel;
         public MainWindow(MainViewModel mainViewModel)
         {
             InitializeComponent();
             _viewModel = mainViewModel;
             DataContext = _viewModel;
+
+            _viewModel.ShowCounterLineWindowEvent += () => showCLWEvent?.Invoke();
+
         }
     }
 }
