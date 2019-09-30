@@ -23,7 +23,7 @@ namespace FastestFallProgramExample.Startup
             builder.RegisterType<MainWindow>().AsSelf();
             builder.RegisterType<MainViewModel>().AsSelf();
 
-            builder.RegisterType<CounterLineWindow>().AsSelf().SingleInstance();
+            builder.RegisterType<CounterLineWindow>().AsSelf();
             builder.RegisterType<CounterLineWindowViewModel>().AsSelf();
 
             builder.RegisterType<CounterLineDetailViewModel>().As<ICounterLineDetailViewModel>();

@@ -163,6 +163,7 @@ namespace FastestFallProgramExample.ViewModel
             var p = calcucatedPoints.ElementAt(0).ListOfVariables.Max(pq => Math.Abs(pq));
             if (p == 0)
                 p = 1;
+            ShowCounterLineWindowEvent?.Invoke(); // open new window
             _eventAggregator.GetEvent<CreateCounterLineEvent>().Publish(
                 new CreateCounterLineEventArgs
                 {
@@ -172,7 +173,7 @@ namespace FastestFallProgramExample.ViewModel
                     Function = FunctionDefinedByUser,
                     ImegeSize = CounterLineSize
                 });
-            ShowCounterLineWindowEvent?.Invoke(); // open new window
+
 
         }
         private bool OnCanCreateCommand()

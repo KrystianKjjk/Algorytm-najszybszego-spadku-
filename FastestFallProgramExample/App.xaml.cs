@@ -34,6 +34,7 @@ namespace FastestFallProgramExample
             
             mainWindow.showCLWEvent += () =>
             {
+                counterLineWindow = container.Resolve<CounterLineWindow>();
                 counterLineWindow.Show();
                 //counterLineWindow.CloseCLWEvent += () => counterLineWindow = container.Resolve<CounterLineWindow>();
             };
