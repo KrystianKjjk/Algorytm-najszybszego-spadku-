@@ -6,7 +6,7 @@ Program oblicza minimum lokalne zadanej różniczkowalnej funkcji matematycznej 
 (http://mathparser.org/mxparser-license/)
 
 
-## Omówienie działania programu
+# Omówienie działania programu
 Aplikacja została napisana w języku C# z wykorzystaniem platformy .NET framework 4.6.1. Interfejs użytkownika został napisany w środowisku WPF. Interfejs pozwala na wprowadzenie danych określonych w założeniach projektowych. Program w celu prowadzenia obliczeo na zadanej funkcji wykorzystuje mXPrarser[1].
 
 # 3.1. Wprowadzanie danych
