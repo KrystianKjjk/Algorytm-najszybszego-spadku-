@@ -2,7 +2,7 @@
 Program oblicza minimum lokalne zadanej różniczkowalnej funkcji matematycznej korzystając z algorytmu najszybszego spadku
 
 ## Omówienie działania programu
-Aplikacja została napisana w języku C# z wykorzystaniem platformy .NET framework 4.6.1. Interfejs użytkownika został napisany w środowisku WPF. Interfejs pozwala na wprowadzenie danych określonych w założeniach projektowych. Program w celu prowadzenia obliczeo na zadanej funkcji wykorzystuje mXPrarser[1].
+Aplikacja została napisana w języku C# z wykorzystaniem platformy .NET framework 4.6.1. Interfejs użytkownika został napisany w środowisku WPF. Interfejs pozwala na wprowadzenie danych określonych w założeniach projektowych. Program w celu prowadzenia obliczeń na zadanej funkcji wykorzystuje mXPrarser[1].
 
 <h3> Wprowadzanie danych </h3>
 Po uruchomieniu programu wszystkie pola mają wpisane odpowiednie wartości domyślne, które użytkownik może w swobody sposób zmieniać. Podczas wpisywania funkcji należy podać ilość parametrów wejściowych po lewej stronie równania oraz treść równania po prawej stronie np. „f(x1,x2) = x1+x2” a następnie wcisnąć przycisk „zapisz” (użytkownik zostanie poinformowany jeśli zapisana składnia będzie nieprawidłowa). Następnie należy wpisać parametry wejściowe algorytmu: punkt startowy, tau, beta oraz epsilon1-3 lub pozostawć wartości domyślne. Po wybraniu przycisku „Oblicz’ program oblicza minimum funkcji oraz pozwala na wyświetlenie warstwicy pod warunkiem, że funkcja posiada dwie zmienne wejściowe.
